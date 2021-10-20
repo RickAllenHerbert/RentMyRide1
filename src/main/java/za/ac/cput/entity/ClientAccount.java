@@ -5,13 +5,20 @@ package za.ac.cput.entity;
     @Student Number: 218336675
     @Date: 04 June 2021
  */
-public class ClientAccount
-{
-    private String accountNum, numBorrowed;
-private ClientAccount()
-{
+import javax.persistence.*;
+import java.io.Serializable;
 
-}
+@Entity
+@Table(name ="Client_Accounts")
+public class ClientAccount implements Serializable
+{
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private String accountNum, numBorrowed;
+    private ClientAccount()
+    {
+
+    }
     private ClientAccount(Builder builder) {
         this.accountNum = builder.accountNum;
         this.numBorrowed = builder.numBorrowed;

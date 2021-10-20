@@ -1,12 +1,10 @@
 package za.ac.cput.service;
-
 /*
    @Description:CarLotServiceTest.java
    @Author: Elrich Herman
    @Student Number: 218150040
    @Date: 02 August 2021
  */
-
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -58,6 +56,7 @@ class CarLotServiceTest {
         boolean success = service.delete(carLot.getNumberPlate());
         assertTrue(success);
         System.out.println("Deleted: " + success);
+
     }
 
 }

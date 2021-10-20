@@ -1,12 +1,18 @@
 package za.ac.cput.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.io.Serializable;
+
 /*
     @Description:  Login  Entity ->
     @Author: Asiphiwe Hanjiwe
     @Student Number: 218336675
     @Date: 04 June 2021
  */
-public class Login {
+@Entity
+@Table(name ="Client_Accounts")
+public class Login implements Serializable {
 
     private String userType,username,password;
 

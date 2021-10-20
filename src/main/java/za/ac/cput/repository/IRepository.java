@@ -5,6 +5,7 @@ package za.ac.cput.repository;
     @Student Number: 215141210
     @Date: 19 July 2021
 */
+@Deprecated
 public interface IRepository<Type, ID> {
     Type create(Type t);
     Type read(ID id);

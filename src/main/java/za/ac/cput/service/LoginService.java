@@ -1,9 +1,15 @@
 package za.ac.cput.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import za.ac.cput.entity.ClientAccount;
 import za.ac.cput.entity.Login;
-import za.ac.cput.repository.login.LoginRepository;
+import za.ac.cput.repository.clientAccount.IClientAccountRepository;
+import za.ac.cput.repository.login.ILoginRepository;
+
 import za.ac.cput.service.login.ILoginService;
 import java.util.Set;
+import java.util.stream.Collectors;
+
 /*
     @Description: Login Service ->
     @Author: Asiphiwe Hanjiwe
@@ -12,41 +18,45 @@ import java.util.Set;
  */
 public class LoginService implements ILoginService {
     private static LoginService service = null;
-      private LoginRepository repo = null;
+      private ILoginRepository repo = null;
 
-      private LoginService() {
-        this.repo = LoginRepository.getRepository();
-      }
+    @Autowired
+    private ILoginRepository repository;
 
-    public static LoginService getService() {
-        if (service == null) {
-            service = new LoginService();
-        }
-        return service;
+    @Override
+    public Login create(Login log) {
+        return this.repository.save(log);
     }
 
     @Override
-    public Login create(Login userType) {
-        return this.repo.create(userType);
+    public Login read(String logId) {
+        return this.repository.findById(logId).orElse(null);
     }
 
     @Override
-    public Login read(String username) {
-        return this.repo.read(username);
+    public Login update(Login log) {
+        if (this.repository.existsById(log.getPassword()))
+            return this.repository.save(log);
+        return null;
     }
 
     @Override
-    public Login update(Login userType) {
-        return this.repo.update(userType);
-    }
-
-    @Override
-    public boolean delete(String username) {
-        return this.repo.delete(username);
+    public boolean delete(String logId) {
+        this.repository.deleteById(logId);
+        if (this.repository.existsById(logId))
+            return false;
+        else
+            return true;
     }
 
     @Override
     public Set<Login> getAll() {
-        return this.repo.getAll();
+        return this.repository.findAll().stream().collect(Collectors.toSet());
     }
+
+    @Override
+    public Login getLoginGivenDescription(String description) {
+        return null;
+    }
+
 }
