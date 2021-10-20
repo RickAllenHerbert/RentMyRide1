@@ -1,11 +1,19 @@
 package za.ac.cput.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.io.Serializable;
+
 /* Car.java
    Entity for the Car
    Author: Rick Allen Herbert (219014337)
    Date: 05 June 2021
 */
-public class Car {
+@Entity
+public class Car implements Serializable {
 
+    @Id
     private String numberPlate;
     private String color;
     private String make;

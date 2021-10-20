@@ -9,6 +9,7 @@ package za.ac.cput.service;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.springframework.beans.factory.annotation.Autowired;
 import za.ac.cput.entity.Car;
 import za.ac.cput.factory.CarFactory;
 
@@ -16,7 +17,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.MethodName.class)
 class CarServiceTest {
-    private static CarService service = CarService.getService();
+    @Autowired
+    private static CarService service;
+
     private static Car car = CarFactory.createCar(
             "412556",
             "Blue",

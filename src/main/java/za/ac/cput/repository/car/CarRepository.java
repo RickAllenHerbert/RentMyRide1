@@ -1,8 +1,5 @@
-/* CarRepository.java
-   Implementation of ICarRepository
-   Author: Rick Allen Herbert (219014337)
-   Date: 24 July 2021
-*/
+/*
+
 package za.ac.cput.repository.car;
 
 import za.ac.cput.entity.Car;
@@ -10,6 +7,7 @@ import za.ac.cput.entity.Car;
 import java.util.HashSet;
 import java.util.Set;
 
+@Deprecated
 public class CarRepository implements ICarRepository {
 
     private static CarRepository repository = null;
@@ -73,3 +71,5 @@ public class CarRepository implements ICarRepository {
         return carDB;
     }
 }
+
+ */

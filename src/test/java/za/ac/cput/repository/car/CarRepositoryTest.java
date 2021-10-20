@@ -8,15 +8,21 @@ package za.ac.cput.repository.car;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.springframework.beans.factory.annotation.Autowired;
 import za.ac.cput.entity.Car;
 import za.ac.cput.factory.CarFactory;
+
+import javax.persistence.EntityNotFoundException;
+
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.MethodName.class)
 public class CarRepositoryTest {
 
-    private static CarRepository repository = CarRepository.getRepository();
+    @Autowired
+    private static ICarRepository repository;
     private static Car car = CarFactory.createCar(
             "412556",
             "Blue",
@@ -28,14 +34,14 @@ public class CarRepositoryTest {
 
     @Test
     void a_createCar() {
-        Car created = repository.create(car);
+        Car created = repository.save(car);
         assertEquals(created.getNumberPlate(), car.getNumberPlate());
         System.out.println("Create: " + created);
     }
 
     @Test
     void b_readCar() {
-        Car read = repository.read(car.getNumberPlate());
+        Car read = repository.findById(car.getNumberPlate()).orElseThrow(() -> new EntityNotFoundException("Car with id " + car.getNumberPlate() + " was not found" ));
         assertNotNull(read);
         System.out.println("Read: " + read);
     }
@@ -44,21 +50,24 @@ public class CarRepositoryTest {
     void c_updateCar()
     {
         Car updated = new Car.Builder().copy(car).color("Red").build();
-        assertNotNull(repository.update(updated));
+        assertNotNull(repository.save(updated));
         System.out.println("Update:" + updated);
     }
 
     @Test
-    void d_deleteCar()
+    boolean d_deleteCar()
     {
-        boolean success = repository.delete(car.getNumberPlate());
-        assertTrue(success);
-        System.out.println("Delete:" + success);
+        Car read = repository.findById(car.getNumberPlate()).orElseThrow(() -> new EntityNotFoundException("Car with id " + car.getNumberPlate() + " was not found" ));
+        this.repository.deleteById(read.getNumberPlate());
+        if(this.repository.existsById(read.getNumberPlate()))
+            return false;
+        else
+            return true;
     }
 
     @Test
     void e_getAllCar(){
         System.out.println("Show All:");
-        System.out.println(repository.getAll());
+        System.out.println(repository.findAll().stream().collect(Collectors.toSet()));
     }
 }

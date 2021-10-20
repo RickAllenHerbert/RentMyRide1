@@ -5,11 +5,14 @@
 */
 package za.ac.cput.repository.car;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import za.ac.cput.entity.Car;
 import za.ac.cput.repository.IRepository;
 
 import java.util.Set;
 
-public interface ICarRepository extends IRepository<Car, String> {
-    public Set<Car> getAll();
+
+@Repository
+public interface ICarRepository extends JpaRepository<Car, String> {
 }

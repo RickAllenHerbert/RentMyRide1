@@ -10,7 +10,7 @@ import za.ac.cput.service.ClientAccountService;
 
 import java.util.Set;
 @RestController
-@RequestMapping ("/client")
+@RequestMapping ("/clientaccount")
 
 
 public class ClientAccountController {

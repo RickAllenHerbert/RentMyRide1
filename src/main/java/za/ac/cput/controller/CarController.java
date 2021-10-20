@@ -17,16 +17,7 @@ public class CarController {
 
     @RequestMapping(value = "/create")
     public Car create(@RequestBody Car car) {
-        Car newCar = CarFactory.createCar(
-                car.getNumberPlate(),
-                car.getColor(),
-                car.getMake(),
-                car.getModel(),
-                car.getRentalPrice(),
-                car.getLocation(),
-                car.availabilityStatus()
-        );
-        return carService.create(newCar);
+        return carService.create(car);
     }
     @GetMapping("/read/{numberPlate}")
     public Car read(@PathVariable String numberPlate) {
@@ -39,11 +30,10 @@ public class CarController {
         return updateCar;
     }
 
-    @RequestMapping("/delete")
-    public String delete(@RequestBody Car car) {
-        if(carService.delete(car.getNumberPlate()))
-            return "Successfully deleted the record";
-        return "An error has occurred while trying to delete this record";
+    @DeleteMapping("/delete/{id}")
+    public boolean delete(@PathVariable String id)
+    {
+        return carService.delete(id);
     }
 
     @RequestMapping("/getall")
