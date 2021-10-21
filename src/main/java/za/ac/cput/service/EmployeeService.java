@@ -1,43 +1,49 @@
 package za.ac.cput.service;
-/*
-    @Description:Repository ->
-    @Author: Tyronne Lloyd Hendricks
-    @Student Number: 215141210
-    @Date: 27 July 2021
-*/
 
+import org.springframework.stereotype.Service;
 import za.ac.cput.entity.Employee;
-import za.ac.cput.repository.employee.EmployeeRepository;
+import za.ac.cput.repository.employee.IEmployeeRepository;
 import za.ac.cput.service.employee.IEmployeeService;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+@Service
 public class EmployeeService implements IEmployeeService{
-    private static  EmployeeService service = null;
-    private EmployeeRepository repository = null;
+    private IEmployeeRepository repository;
 
-    private EmployeeService(){this.repository = EmployeeRepository.getRepository();}
+    private EmployeeService(IEmployeeRepository repository){this.repository = repository;}
 
-    public static EmployeeService getService(){
-        if(service == null){
-            service = new EmployeeService();
-        }
-        return service;
+
+    @Override
+    public Employee create(Employee employee){return this.repository.save(employee);}
+
+    @Override
+    public Employee read(String employeeID){
+        return this.repository.findById(employeeID).orElseThrow(() -> new EntityNotFoundException("employee with id " + employeeID + " was not found" ));
     }
-    @Override
-    public Employee create(Employee employee){return this.repository.create(employee);}
 
     @Override
-    public Employee read(String employeeID){return this.repository.read(employeeID);}
+    public Employee update(Employee employee){
+        if(this.repository.existsById(employee.getEmployeeNumber()))
+            return this.repository.save(employee);
+        return null;
+    }
 
     @Override
-    public Employee update(Employee employee){return this.repository.update(employee);}
+    public boolean delete(String employeeID){
+        this.repository.deleteById(employeeID);
+        if(this.repository.existsById(employeeID))
+            return false;
+        else
+            return true;
+    }
 
     @Override
-    public boolean delete(String employeeID){return this.repository.delete(employeeID);}
-
-    @Override
-    public Set<Employee> getAll(){return  this.repository.getAll();}
+    public Set<Employee> getAll(){
+        return this.repository.findAll().stream().collect(Collectors.toSet());
+    }
 
 
 }

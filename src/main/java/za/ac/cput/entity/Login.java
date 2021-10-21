@@ -1,6 +1,7 @@
 package za.ac.cput.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 
@@ -14,7 +15,9 @@ import java.io.Serializable;
 @Table(name ="Client_Accounts")
 public class Login implements Serializable {
 
-    private String userType,username,password;
+    @Id
+    private String username;
+    private String userType,password;
 
     private Login(Builder builder)
     {

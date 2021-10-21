@@ -7,12 +7,14 @@ package za.ac.cput.service;
    @Date: 02 August 2021
  */
 
+import org.springframework.stereotype.Service;
 import za.ac.cput.entity.CarLot;
 import za.ac.cput.repository.carlot.CarLotRepository;
 import za.ac.cput.service.carlot.ICarLotService;
 
 import java.util.Set;
 
+@Service
 public class CarLotService implements ICarLotService{
     private static  CarLotService service = null;
     private CarLotRepository repository = null;

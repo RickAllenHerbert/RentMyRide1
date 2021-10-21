@@ -1,8 +1,11 @@
 package za.ac.cput.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.entity.Car;
+import za.ac.cput.entity.Employee;
 import za.ac.cput.factory.CarFactory;
 import za.ac.cput.service.CarService;
 
@@ -36,9 +39,11 @@ public class CarController {
         return carService.delete(id);
     }
 
-    @RequestMapping("/getall")
-    public Set<Car> getAll() {
-        return carService.getAll();
+
+    @RequestMapping(value = "/getall", method = RequestMethod.GET)
+    public ResponseEntity<Set<Car>> getAll(){
+        Set<Car> cars = carService.getAll();
+        return new ResponseEntity<>(cars, HttpStatus.OK);
     }
 
 }

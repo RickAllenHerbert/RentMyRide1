@@ -5,9 +5,18 @@ package za.ac.cput.entity;
     @Student Number: 215141210
     @Date: 3rd June 2021
  */
-public class Employee {
-    private String employeeNumber, name, surname, userType, username, password;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.io.Serializable;
+
+@Entity
+public class Employee implements Serializable {
+    @Id
+    private String employeeNumber;
+    private String name, surname, userType, username, password;
+
+    public Employee() {}
     private Employee(Builder builder) {
         this.employeeNumber = builder.employeeNumber;
         this.name = builder.name;

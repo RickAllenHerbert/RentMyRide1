@@ -1,15 +1,16 @@
-package za.ac.cput.repository.employee;
 /*
+package za.ac.cput.repository.employee;
+
     @Description:Repository ->
     @Author: Tyronne Lloyd Hendricks
     @Student Number: 215141210
     @Date: 19 July 2021
-*/
+
 import za.ac.cput.entity.Employee;
 
 import java.util.HashSet;
 import java.util.Set;
-
+@Deprecated
 public class EmployeeRepository implements IEmployeeRepository {
 
     private static EmployeeRepository repository = null;
@@ -68,3 +69,5 @@ public class EmployeeRepository implements IEmployeeRepository {
         return employeeDS;
     }
 }
+
+ */

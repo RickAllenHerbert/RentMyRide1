@@ -7,7 +7,13 @@ package za.ac.cput.entity;
    @Date: 3 June 2021
  */
 
-public class Client {
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.io.Serializable;
+
+@Entity
+public class Client implements Serializable {
+    @Id
     private String clientID,name,surname,contactNumber, accountNumber;
 
     private Client(){}

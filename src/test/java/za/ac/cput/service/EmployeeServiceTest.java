@@ -4,13 +4,15 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.springframework.beans.factory.annotation.Autowired;
 import za.ac.cput.entity.Employee;
 import za.ac.cput.factory.EmployeeFactory;
 import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 
 class EmployeeServiceTest {
-    private static EmployeeService service  = EmployeeService.getService();
+    @Autowired
+    private static EmployeeService service;
     private static Employee employee = EmployeeFactory.createEmployee("Ty","Lloyd", "Admin","CoffeeAndKicks","141202141");
 
     @Test

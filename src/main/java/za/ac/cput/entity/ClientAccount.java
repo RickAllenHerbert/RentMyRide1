@@ -14,7 +14,8 @@ public class ClientAccount implements Serializable
 {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private String accountNum, numBorrowed;
+    private String accountNum;
+    private String numBorrowed;
     private ClientAccount()
     {
 
